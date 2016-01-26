@@ -84,6 +84,18 @@ class ViewController: UIViewController {
         self.presentViewController(nav, animated: true, completion: nil)
     }
 
+    @IBAction func customViewAlertViewButtonPress(sender: AnyObject) {
+        let contentView = UIView(frame: CGRect(x: 0, y: 0, width: 250, height: 30))
+        contentView.backgroundColor = UIColor.lightGrayColor()
+        JSSAlertView().show(
+            self,
+            title: "Custom view",
+            contentView: contentView,
+            buttonText: "I Got It",
+            color: UIColor.whiteColor()
+        )
+    }
+    
     func closeCallback() {
         print("Close callback called")
     }

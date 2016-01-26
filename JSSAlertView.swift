@@ -21,6 +21,7 @@ class JSSAlertView: UIViewController {
     var buttonLabel:UILabel!
     var cancelButtonLabel:UILabel!
     var titleLabel:UILabel!
+    var contentView: UIView!
     var textView:UITextView!
     weak var rootViewController:UIViewController!
     var iconImage:UIImage!
@@ -146,7 +147,7 @@ class JSSAlertView: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName:nibNameOrNil, bundle:nibBundleOrNil)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -206,6 +207,19 @@ class JSSAlertView: UIViewController {
             }
         }
         
+        // position content view
+        if self.contentView != nil {
+            if self.alertWidth - (self.padding*2) > self.contentView.frame.size.width {
+                let currentFrame = CGRect(x: contentView.frame.origin.x, y: yPos, width: contentView.frame.size.width, height: contentView.frame.size.height)
+                contentView.frame = currentFrame
+                contentView.center = CGPointMake(containerView.frame.size.width/2, contentView.center.y)
+            } else {
+                self.contentView.frame = CGRect(x: self.padding, y: yPos, width: self.alertWidth - (self.padding*2), height: self.contentView.frame.size.height)
+            }
+            
+            yPos += ceil(self.contentView.frame.size.height)
+        }
+        
         let buttonX = buttonWidth == self.alertWidth ? 0 : buttonWidth
         self.dismissButton.frame = CGRect(x: buttonX, y: yPos, width: buttonWidth, height: self.buttonHeight)
         if self.buttonLabel != nil {
@@ -251,7 +265,7 @@ class JSSAlertView: UIViewController {
         return alertview
     }
     
-    func show(viewController: UIViewController, title: String, text: String?=nil, buttonText: String?=nil, cancelButtonText: String?=nil, color: UIColor?=nil, iconImage: UIImage?=nil) -> JSSAlertViewResponder {
+    func show(viewController: UIViewController, title: String, text: String?=nil, buttonText: String?=nil, cancelButtonText: String?=nil, color: UIColor?=nil, iconImage: UIImage?=nil, contentView: UIView?=nil) -> JSSAlertViewResponder {
         
         self.rootViewController = viewController.view.window!.rootViewController
         
@@ -322,6 +336,12 @@ class JSSAlertView: UIViewController {
             self.containerView.addSubview(textView)
         }
         
+        // content view
+        if let contentView = contentView {
+            self.contentView = contentView
+            self.containerView.addSubview(self.contentView)
+        }
+        
         // Button
         self.dismissButton = UIButton()
         let buttonColor = UIImage.withColor(adjustBrightness(baseColor!, amount: 0.8))
@@ -374,7 +394,7 @@ class JSSAlertView: UIViewController {
         UIView.animateWithDuration(0.5, delay: 0.05, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5, options: [], animations: {
             self.containerView.center = self.view.center
             self.containerView.center = CGPoint(x: UIScreen.mainScreen().bounds.size.width / 2 , y: UIScreen.mainScreen().bounds.size.width / 2)
-
+            
             }, completion: { finished in
                 
         })
