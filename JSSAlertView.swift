@@ -195,18 +195,6 @@ class JSSAlertView: UIViewController {
             yPos += ceil(textRect.size.height) + padding/2
         }
         
-        // position the buttons
-        yPos += self.padding
-        
-        var buttonWidth = self.alertWidth
-        if self.cancelButton != nil {
-            buttonWidth = self.alertWidth/2
-            self.cancelButton.frame = CGRect(x: 0, y: yPos, width: buttonWidth-0.5, height: self.buttonHeight)
-            if self.cancelButtonLabel != nil {
-                self.cancelButtonLabel.frame = CGRect(x: self.padding, y: (self.buttonHeight/2) - 15, width: buttonWidth - (self.padding*2), height: 30)
-            }
-        }
-        
         // position content view
         if self.contentView != nil {
             if self.alertWidth - (self.padding*2) > self.contentView.frame.size.width {
@@ -219,6 +207,20 @@ class JSSAlertView: UIViewController {
             
             yPos += ceil(self.contentView.frame.size.height)
         }
+        
+        // position the buttons
+        yPos += self.padding
+        
+        var buttonWidth = self.alertWidth
+        if self.cancelButton != nil {
+            buttonWidth = self.alertWidth/2
+            self.cancelButton.frame = CGRect(x: 0, y: yPos, width: buttonWidth-0.5, height: self.buttonHeight)
+            if self.cancelButtonLabel != nil {
+                self.cancelButtonLabel.frame = CGRect(x: self.padding, y: (self.buttonHeight/2) - 15, width: buttonWidth - (self.padding*2), height: 30)
+            }
+        }
+        
+        
         
         let buttonX = buttonWidth == self.alertWidth ? 0 : buttonWidth
         self.dismissButton.frame = CGRect(x: buttonX, y: yPos, width: buttonWidth, height: self.buttonHeight)
