@@ -6,7 +6,7 @@ A custom "modal" alert view for iOS 7+ written in Swift, with a couple basic the
 
 ### How to use
 
-The most minimal alert just has a title. 
+The most minimal alert just has a title.
 
 ```swift
 JSSAlertView().show(
@@ -21,8 +21,8 @@ Besides the default `show()` method you can call any of four alert themes: `info
 
 ```swift
 JSSAlertView().success(
-  self, 
-  title: "Great success", 
+  self,
+  title: "Great success",
   text: "This is the built-in .success style"
 )
 ```
@@ -33,22 +33,22 @@ You can customize button text, add a custom icon and customize the alert color.
 var customIcon:UIImage! // your custom icon UIImage
 var customColor:UIColor! // base color for the alert
 JSSAlertView().show(
-  self, 
-  title: "Another alert", 
-  text: "An alert with more customizations.", 
-  buttonText: "Right on", 
-  color: customColor, 
+  self,
+  title: "Another alert",
+  text: "An alert with more customizations.",
+  buttonText: "Right on",
+  color: customColor,
   iconImage: customIcon)
 ```
 
 You can also provide a callback function to run after the alert is dismissed, specify custom fonts and change the alert's text color from dark to light.
 
 ```swift
-func myCallback() { 
+func myCallback() {
   // this'll run after the alert is dismissed
 }
-var alertview = JSSAlertView().show(self, 
-  title: "Yet another alert", 
+var alertview = JSSAlertView().show(self,
+  title: "Yet another alert",
   text: "Callbacks, fonts and text colors"
 )
 alertview.addAction(myCallback) // Method to run after dismissal
@@ -65,14 +65,31 @@ func myCancelCallback() {
   // this'll run if cancel is pressed after the alert is dismissed
 }
 var alertview = JSSAlertView().show(
-  self, 
+  self,
   title: "I'm an alert",
-  text: "An alert with two buttons. Dismiss by tapping the left, and do something else by tapping the right.", 
+  text: "An alert with two buttons. Dismiss by tapping the left, and do something else by tapping the right.",
   buttonText: "OK",
   cancelButtonText: "Cancel" // This tells JSSAlertView to create a two-button alert
 )
 alertview.addCancelAction(myCancelCallback)
 ```
+
+Also alerts with a custom view are possible:
+```swift
+var customView = UIView(frame: CGRect(x: 0, y: 0, width: 250, height: 30))
+customView.backgroundColor = UIColor.darkGrayColor()
+
+
+var alertview = JSSAlertView().show(
+  self,
+  title: "I'm an alert",
+  buttonText: "OK",
+  contentView: customView
+)
+alertview.addCancelAction(myCancelCallback)
+```
+
+
 
 See the included example project for more!
 
