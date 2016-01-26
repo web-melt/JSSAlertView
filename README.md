@@ -86,6 +86,7 @@ var alertview = JSSAlertView().show(
   buttonText: "OK",
   contentView: customView
 )
+
 ```
 
 
